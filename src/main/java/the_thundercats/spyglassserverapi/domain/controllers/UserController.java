@@ -8,6 +8,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import the_thundercats.spyglassserverapi.domain.core.exceptions.ResourceCreationException;
 import the_thundercats.spyglassserverapi.domain.core.exceptions.ResourceNotFoundException;
+import the_thundercats.spyglassserverapi.domain.dtos.UserCreateRequest;
+import the_thundercats.spyglassserverapi.domain.dtos.UserDTO;
 import the_thundercats.spyglassserverapi.domain.models.User;
 import the_thundercats.spyglassserverapi.domain.services.UserService;
 
@@ -26,24 +28,24 @@ public class UserController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<User> create(@RequestBody User user) throws ResourceCreationException {
-        user = userService.createUser(user);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+    public ResponseEntity<UserDTO> create(@RequestBody UserCreateRequest user) throws ResourceCreationException {
+        UserDTO userSave = userService.createUser(user);
+        return new ResponseEntity<>(userSave, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getById(@PathVariable("id") String id) throws ResourceNotFoundException {
-        User user = userService.getUserById(id);
+    @GetMapping("{id}")
+    public ResponseEntity<UserDTO> getById(@PathVariable("id") String id) throws ResourceNotFoundException {
+        UserDTO user = userService.getUserById(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<User> update(@PathVariable("id") String id, @RequestBody User userDetail) throws ResourceNotFoundException, ResourceCreationException {
-        userService.updateUser(id, userDetail);
-        return new ResponseEntity<>(userDetail, HttpStatus.ACCEPTED);
+    @PutMapping("{id}")
+    public ResponseEntity<UserDTO> update(@PathVariable("id")String id, @RequestBody User userProfile) throws ResourceNotFoundException {
+        UserDTO userDTO = userService.updateUser(id, userProfile);
+        return new ResponseEntity<>(userDTO, HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity delete(@PathVariable("id") String id) throws ResourceNotFoundException {
         userService.deleteUser(id);
         return new ResponseEntity(HttpStatus.NO_CONTENT);

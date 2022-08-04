@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import the_thundercats.spyglassserverapi.domain.core.exceptions.ResourceCreationException;
 import the_thundercats.spyglassserverapi.domain.core.exceptions.ResourceNotFoundException;
+import the_thundercats.spyglassserverapi.domain.dtos.UserDTO;
 import the_thundercats.spyglassserverapi.domain.models.RecurringGoal;
 import the_thundercats.spyglassserverapi.domain.models.User;
 import the_thundercats.spyglassserverapi.domain.repos.RecurringGoalRepo;

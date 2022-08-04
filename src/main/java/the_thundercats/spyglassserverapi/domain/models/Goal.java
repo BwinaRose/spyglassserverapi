@@ -1,6 +1,7 @@
 package the_thundercats.spyglassserverapi.domain.models;
 
 import lombok.*;
+import the_thundercats.spyglassserverapi.domain.dtos.UserDTO;
 
 import javax.persistence.*;
 import java.text.DateFormat;
@@ -17,7 +18,6 @@ import java.util.List;
 @NoArgsConstructor
 @RequiredArgsConstructor
 public abstract class Goal {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
