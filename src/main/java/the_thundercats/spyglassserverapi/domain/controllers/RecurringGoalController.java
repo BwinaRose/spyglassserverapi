@@ -24,7 +24,7 @@ public class RecurringGoalController {
     }
 
     @PostMapping("{id}")
-    public ResponseEntity<RecurringGoal> create(@PathVariable("id") Long userId, @RequestBody RecurringGoal goal) throws ResourceNotFoundException {
+    public ResponseEntity<RecurringGoal> create(@PathVariable("id") String userId, @RequestBody RecurringGoal goal) throws ResourceNotFoundException {
         goal = recurringGoalService.create(userId, goal);
         return new ResponseEntity<>(goal, HttpStatus.CREATED);
     }
@@ -36,7 +36,7 @@ public class RecurringGoalController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<List<RecurringGoal>> getAllFromUser(@PathVariable("id") Long userId) throws ResourceNotFoundException {
+    public ResponseEntity<List<RecurringGoal>> getAllFromUser(@PathVariable("id") String userId) throws ResourceNotFoundException {
         List<RecurringGoal> goals = recurringGoalService.getAllFromUser(userId);
         return new ResponseEntity<>(goals, HttpStatus.OK);
     }

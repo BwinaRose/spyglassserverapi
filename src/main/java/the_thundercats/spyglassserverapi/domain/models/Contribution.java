@@ -27,9 +27,10 @@ public class Contribution {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @NonNull
     private Double contributionAmount;
-    @ManyToOne
+
+    @NonNull
     private Date contributionDate;
     @NonNull
     private Goal goal;

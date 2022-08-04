@@ -43,11 +43,11 @@ public class RecurringGoalControllerTest {
     @BeforeEach
     public void setUp() {
         mockGoal01 = new RecurringGoal("travel", "this is for travel", "this would be a path", new Date(), 0.00, 100.00, 0.00, Frequency.WEEKLY);
-        mockGoal01.getUser().setId(1L);
+        //mockGoal01.getUser().setId();
 
         savedGoal01 = new RecurringGoal("travel", "this is for travel", "this would be a path", new Date(), 0.00, 100.00, 0.00, Frequency.WEEKLY);
         savedGoal01.setId(1L);
-        savedGoal01.getUser().setId(1L);
+        //savedGoal01.getUser().setId(1L);
 
         savedGoal02 = new RecurringGoal("car", "this is for car", "this would be a path", new Date(), 0.00, 10000.00, 100.00, Frequency.MONTHLY);
         savedGoal02.setId(1L);
