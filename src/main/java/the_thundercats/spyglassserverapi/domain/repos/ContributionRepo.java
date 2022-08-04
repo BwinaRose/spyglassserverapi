@@ -6,5 +6,4 @@ import the_thundercats.spyglassserverapi.domain.models.Contribution;
 import java.util.List;
 
 public interface ContributionRepo extends JpaRepository<Contribution, Long> {
-    List<Contribution> findByReceiver(Long receiver);
 }

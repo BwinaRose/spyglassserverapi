@@ -29,11 +29,6 @@ public class ContributionServiceImpl implements ContributionService {
     }
 
     @Override
-    public List<Contribution> getByReceiver(Long receiver){
-        return contributionRepo.findByReceiver(receiver);
-    }
-
-    @Override
     public List<Contribution> getAll() {
         return contributionRepo.findAll();
     }

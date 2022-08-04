@@ -3,12 +3,14 @@ package the_thundercats.spyglassserverapi.domain.models;
 import lombok.*;
 import the_thundercats.spyglassserverapi.domain.Frequency;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import java.util.Date;
 
 
 @Entity
+@DiscriminatorValue("recurring")
 @ToString
 @NoArgsConstructor
 public class RecurringGoal extends Goal{
