@@ -21,7 +21,7 @@ import java.util.TimeZone;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Data
-@Table(name = "messages")
+@Table(name = "contributions")
 public class Contribution {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +32,7 @@ public class Contribution {
 
     @NonNull
     private Date contributionDate;
-    @NonNull
+    @ManyToOne
     private Goal goal;
 
     @NonNull

@@ -8,7 +8,6 @@ import java.util.List;
 public interface ContributionService {
     Contribution create(Contribution contribution);
     Contribution getById(Long id) throws ResourceNotFoundException;
-    List<Contribution> getByReceiver(Long receiver);
     List<Contribution> getAll() ;
     void delete(Long id) throws ResourceNotFoundException;
 }

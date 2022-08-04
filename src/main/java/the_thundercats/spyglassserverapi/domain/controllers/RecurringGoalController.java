@@ -35,7 +35,7 @@ public class RecurringGoalController {
         return new ResponseEntity<>(goal, HttpStatus.OK);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/user/{id}")
     public ResponseEntity<List<RecurringGoal>> getAllFromUser(@PathVariable("id") String userId) throws ResourceNotFoundException {
         List<RecurringGoal> goals = recurringGoalService.getAllFromUser(userId);
         return new ResponseEntity<>(goals, HttpStatus.OK);
