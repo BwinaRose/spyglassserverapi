@@ -26,8 +26,8 @@ public class RecurringGoalServiceImpl implements RecurringGoalService {
     }
 
     @Override
-    public RecurringGoal create(Long userId, RecurringGoal recurringGoal) throws ResourceNotFoundException {
-        User user = userService.getById(userId);
+    public RecurringGoal create(String userId, RecurringGoal recurringGoal) throws ResourceNotFoundException {
+        User user = userService.getUserById(userId);
         recurringGoal.setUser(user);
         return recurringGoalRepo.save(recurringGoal);
     }
@@ -42,7 +42,7 @@ public class RecurringGoalServiceImpl implements RecurringGoalService {
     }
 
     @Override
-    public List<RecurringGoal> getAllFromUser(Long userId) throws ResourceNotFoundException {
+    public List<RecurringGoal> getAllFromUser(String userId) throws ResourceNotFoundException {
         return recurringGoalRepo.findByUser(userId);
     }
 
