@@ -1,0 +1,3 @@
+create database spyglass;
+
+use database spyglass;
