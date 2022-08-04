@@ -7,5 +7,5 @@ import the_thundercats.spyglassserverapi.domain.models.User;
 import java.util.List;
 
 public interface RecurringGoalRepo extends JpaRepository<RecurringGoal, Long> {
-    List<RecurringGoal> findByUser(Long id);
+    List<RecurringGoal> findByUser(String id);
 }
