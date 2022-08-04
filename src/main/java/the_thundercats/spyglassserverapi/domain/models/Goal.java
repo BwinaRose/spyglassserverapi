@@ -11,12 +11,12 @@ import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "typeOfGoal")
 @Data
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
 @RequiredArgsConstructor
+@Table(name = "goals")
 public abstract class Goal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
