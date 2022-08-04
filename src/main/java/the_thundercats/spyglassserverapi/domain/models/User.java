@@ -27,24 +27,20 @@ public class User {
     @NonNull
     private String email;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "goals")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     @JsonManagedReference
-    private List<List<RecurringGoal>> recurringGoals = new java.util.ArrayList<>();
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "goals")
-    @JsonManagedReference
-    private List<List<TimedGoal>> timedGoals = new java.util.ArrayList<>();
+    private List<RecurringGoal> recurringGoals = new java.util.ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && firstName.equals(user.firstName) && lastName.equals(user.lastName) && email.equals(user.email) && Objects.equals(recurringGoals, user.recurringGoals) && Objects.equals(timedGoals, user.timedGoals);
+        return Objects.equals(id, user.id) && firstName.equals(user.firstName) && lastName.equals(user.lastName) && email.equals(user.email) && Objects.equals(recurringGoals, user.recurringGoals);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, recurringGoals, timedGoals);
+        return Objects.hash(id, firstName, lastName, email, recurringGoals);
     }
 }
