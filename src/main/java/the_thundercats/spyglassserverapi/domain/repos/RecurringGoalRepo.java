@@ -1,4 +1,11 @@
 package the_thundercats.spyglassserverapi.domain.repos;
 
-public interface RecurringGoalRepo {
+import org.springframework.data.jpa.repository.JpaRepository;
+import the_thundercats.spyglassserverapi.domain.models.RecurringGoal;
+import the_thundercats.spyglassserverapi.domain.models.User;
+
+import java.util.List;
+
+public interface RecurringGoalRepo extends JpaRepository<RecurringGoal, Long> {
+    List<RecurringGoal> findByUser(Long id);
 }
