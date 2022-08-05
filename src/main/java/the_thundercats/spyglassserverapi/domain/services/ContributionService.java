@@ -6,7 +6,7 @@ import the_thundercats.spyglassserverapi.domain.models.Contribution;
 import java.util.List;
 
 public interface ContributionService {
-    Contribution create(Contribution contribution);
+    Contribution create(Long goalId, Contribution contribution) throws ResourceNotFoundException;
     Contribution getById(Long id) throws ResourceNotFoundException;
     List<Contribution> getAll();
     void delete(Long id) throws ResourceNotFoundException;

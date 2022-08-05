@@ -1,5 +1,6 @@
 package the_thundercats.spyglassserverapi.domain.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import the_thundercats.spyglassserverapi.domain.models.Goal;
@@ -34,6 +35,7 @@ public class Contribution {
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private Date contributionDate;
     @ManyToOne
+    @JsonBackReference
     private Goal goal;
 
     @Override

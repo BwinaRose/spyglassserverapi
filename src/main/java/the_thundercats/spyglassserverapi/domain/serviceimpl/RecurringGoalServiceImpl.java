@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import the_thundercats.spyglassserverapi.domain.core.exceptions.ResourceCreationException;
 import the_thundercats.spyglassserverapi.domain.core.exceptions.ResourceNotFoundException;
 import the_thundercats.spyglassserverapi.domain.dtos.UserDTO;
+import the_thundercats.spyglassserverapi.domain.models.Goal;
 import the_thundercats.spyglassserverapi.domain.models.RecurringGoal;
 import the_thundercats.spyglassserverapi.domain.models.User;
 import the_thundercats.spyglassserverapi.domain.repos.RecurringGoalRepo;
@@ -49,7 +50,7 @@ public class RecurringGoalServiceImpl implements RecurringGoalService {
     }
 
     @Override
-    public RecurringGoal update(Long goalId, RecurringGoal goalDetails) throws ResourceNotFoundException {
+    public RecurringGoal update(Long goalId, Goal goalDetails) throws ResourceNotFoundException {
         RecurringGoal recurringGoal = getById(goalId);
         recurringGoal.setNameOfGoal(goalDetails.getNameOfGoal());
         recurringGoal.setDescriptionOfGoal(goalDetails.getDescriptionOfGoal());

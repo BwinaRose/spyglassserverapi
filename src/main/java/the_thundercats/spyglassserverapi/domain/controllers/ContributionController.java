@@ -20,9 +20,9 @@ public class ContributionController {
         this.contributionService = contributionService;
     }
 
-    @PostMapping
-    public ResponseEntity<Contribution> createContribution(@RequestBody Contribution contribution){
-        contribution = contributionService.create(contribution);
+    @PostMapping("/{id}")
+    public ResponseEntity<Contribution> createContribution(@PathVariable("id") Long goalId, @RequestBody Contribution contribution) throws ResourceNotFoundException {
+        contribution = contributionService.create(goalId, contribution);
         return new ResponseEntity<>(contribution, HttpStatus.CREATED);
     }
 

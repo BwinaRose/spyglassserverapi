@@ -4,21 +4,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import the_thundercats.spyglassserverapi.domain.core.exceptions.ResourceNotFoundException;
 import the_thundercats.spyglassserverapi.domain.models.Contribution;
+import the_thundercats.spyglassserverapi.domain.models.Goal;
+import the_thundercats.spyglassserverapi.domain.models.RecurringGoal;
 import the_thundercats.spyglassserverapi.domain.repos.ContributionRepo;
 import the_thundercats.spyglassserverapi.domain.services.ContributionService;
+import the_thundercats.spyglassserverapi.domain.services.RecurringGoalService;
 
 import java.util.List;
 
 @Service
 public class ContributionServiceImpl implements ContributionService {
     private ContributionRepo contributionRepo;
+    private RecurringGoalService recurringGoalService;
     @Autowired
-    public ContributionServiceImpl(ContributionRepo contributionRepo) {
+    public ContributionServiceImpl(ContributionRepo contributionRepo, RecurringGoalService recurringGoalService) {
         this.contributionRepo = contributionRepo;
+        this.recurringGoalService = recurringGoalService;
     }
 
     @Override
-    public Contribution create(Contribution contribution){
+    public Contribution create(Long goalId, Contribution contribution) throws ResourceNotFoundException {
+        Goal goal = recurringGoalService.getById(goalId);
+        goal.addToCurrentDollarAmount(contribution.getContributionAmount());
+        recurringGoalService.update(goalId, goal);
+        contribution.setGoal(goal);
         return contributionRepo.save(contribution);
     }
 
