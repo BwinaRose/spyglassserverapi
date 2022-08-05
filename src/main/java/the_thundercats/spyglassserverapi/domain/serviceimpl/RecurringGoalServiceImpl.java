@@ -44,8 +44,8 @@ public class RecurringGoalServiceImpl implements RecurringGoalService {
     }
 
     @Override
-    public List<RecurringGoal> getAllFromUser(String userId) throws ResourceNotFoundException {
-        return recurringGoalRepo.findByUser(userId);
+    public List<RecurringGoal> getAllFromUser(User user) throws ResourceNotFoundException {
+        return recurringGoalRepo.findByUser(user);
     }
 
     @Override

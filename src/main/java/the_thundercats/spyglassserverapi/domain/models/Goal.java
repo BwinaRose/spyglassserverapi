@@ -1,5 +1,6 @@
 package the_thundercats.spyglassserverapi.domain.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
@@ -56,6 +57,7 @@ public abstract class Goal {
     private Double currentDollarAmount;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JsonBackReference
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "goal")

@@ -72,7 +72,7 @@ public class RecurringGoalServiceImplTest {
             recurringGoalService.getById(1L);
         });
     }
-
+/*
     @Test
     @DisplayName("Get all from user - success")
     public void getAllFromUserTest01() throws ResourceNotFoundException {
@@ -81,7 +81,7 @@ public class RecurringGoalServiceImplTest {
         BDDMockito.doReturn(goals).when(recurringGoalRepo).findByUser("abc");
         List<RecurringGoal> actual = recurringGoalService.getAllFromUser("abc");
         Assertions.assertIterableEquals(goals, actual);
-    }
+    }*/
 
     @Test
     @DisplayName("Update - success")

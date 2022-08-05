@@ -1,5 +1,6 @@
 package the_thundercats.spyglassserverapi.domain.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import the_thundercats.spyglassserverapi.domain.Frequency;
 
@@ -11,7 +12,9 @@ import java.util.Date;
 @DiscriminatorValue("recurring")
 @ToString
 @NoArgsConstructor
+@Data
 public class RecurringGoal extends Goal{
+
     Frequency contributionFrequency;
 
     public RecurringGoal(Frequency contributionFrequency) {

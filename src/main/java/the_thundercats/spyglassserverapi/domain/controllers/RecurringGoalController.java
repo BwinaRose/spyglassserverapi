@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import the_thundercats.spyglassserverapi.domain.core.exceptions.ResourceNotFoundException;
 import the_thundercats.spyglassserverapi.domain.models.RecurringGoal;
+import the_thundercats.spyglassserverapi.domain.models.User;
 import the_thundercats.spyglassserverapi.domain.services.RecurringGoalService;
 
 import java.util.List;
@@ -35,9 +36,9 @@ public class RecurringGoalController {
         return new ResponseEntity<>(goal, HttpStatus.OK);
     }
 
-    @GetMapping("/user/{id}")
-    public ResponseEntity<List<RecurringGoal>> getAllFromUser(@PathVariable("id") String userId) throws ResourceNotFoundException {
-        List<RecurringGoal> goals = recurringGoalService.getAllFromUser(userId);
+    @GetMapping("/user")
+    public ResponseEntity<List<RecurringGoal>> getAllFromUser(@RequestBody User user) throws ResourceNotFoundException {
+        List<RecurringGoal> goals = recurringGoalService.getAllFromUser(user);
         return new ResponseEntity<>(goals, HttpStatus.OK);
     }
 
