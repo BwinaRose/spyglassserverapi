@@ -1,10 +1,9 @@
 package the_thundercats.spyglassserverapi.domain.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.Type;
 import the_thundercats.spyglassserverapi.domain.dtos.UserDTO;
 
 import javax.persistence.*;
@@ -22,6 +21,12 @@ import java.util.List;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Table(name = "goals")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = RecurringGoal.class, name = "RecurringGoal"),
+
+        @JsonSubTypes.Type(value = TimedGoal.class, name = "TimedGoal") }
+)
 public abstract class Goal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,9 +64,9 @@ public abstract class Goal {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
-    @JsonManagedReference
     private User user;
 
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "goal")
     private List<Contribution> contributions;
 
