@@ -3,6 +3,7 @@ package the_thundercats.spyglassserverapi.domain.models;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
 import the_thundercats.spyglassserverapi.domain.dtos.UserDTO;
@@ -46,6 +47,7 @@ public abstract class Goal {
     }
 
     @NonNull
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private Date endDate;
 
     @NonNull
@@ -59,10 +61,10 @@ public abstract class Goal {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
-    @JsonManagedReference
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "goal")
+    @JsonManagedReference
     private List<Contribution> contributions;
 
     public void addToCurrentDollarAmount(Double amount) {
