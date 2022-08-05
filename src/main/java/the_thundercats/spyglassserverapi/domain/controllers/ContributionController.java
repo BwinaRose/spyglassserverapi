@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import the_thundercats.spyglassserverapi.domain.core.exceptions.ResourceCreationException;
 import the_thundercats.spyglassserverapi.domain.core.exceptions.ResourceNotFoundException;
 import the_thundercats.spyglassserverapi.domain.models.Contribution;
+import the_thundercats.spyglassserverapi.domain.models.RecurringGoal;
 import the_thundercats.spyglassserverapi.domain.services.ContributionService;
 
 import java.util.List;
@@ -27,8 +29,8 @@ public class ContributionController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Contribution>> getAllContributions(){
-        List<Contribution> contributions = contributionService.getAll();
+    public ResponseEntity<List<Contribution>> getAllContributionsFromGoal() throws ResourceNotFoundException {
+        List<Contribution> contributions = contributionService.getAllFromGoal();
         return new ResponseEntity<>(contributions, HttpStatus.OK);
     }
 
@@ -36,6 +38,12 @@ public class ContributionController {
     public ResponseEntity<Contribution> getContributionById(@PathVariable Long id) throws ResourceNotFoundException {
         Contribution contribution = contributionService.getById(id);
         return ResponseEntity.ok(contribution);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Contribution> update(@PathVariable("id") Long goalId, @RequestBody Contribution details) throws ResourceNotFoundException {
+        Contribution contribution = contributionService.update(goalId, details);
+        return new ResponseEntity<>(contribution, HttpStatus.ACCEPTED);
     }
 
 
