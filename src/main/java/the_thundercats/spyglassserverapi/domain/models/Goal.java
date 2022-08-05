@@ -48,6 +48,11 @@ public abstract class Goal {
         startDate = new Date();
     }
 
+    @PreUpdate
+    public void onUpdate() {
+        startDate = new Date();
+    }
+
     @NonNull
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private Date endDate;

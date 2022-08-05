@@ -47,4 +47,9 @@ public class Contribution {
     public void onCreate() {
         contributionDate = new Date();
     }
+
+    @PreUpdate
+    public void onUpdate() {
+        contributionDate = new Date();
+    }
 }
