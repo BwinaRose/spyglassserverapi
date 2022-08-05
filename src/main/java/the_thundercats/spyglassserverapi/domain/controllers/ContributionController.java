@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import the_thundercats.spyglassserverapi.domain.core.exceptions.ResourceCreationException;
 import the_thundercats.spyglassserverapi.domain.core.exceptions.ResourceNotFoundException;
 import the_thundercats.spyglassserverapi.domain.models.Contribution;
+import the_thundercats.spyglassserverapi.domain.models.Goal;
 import the_thundercats.spyglassserverapi.domain.models.RecurringGoal;
 import the_thundercats.spyglassserverapi.domain.services.ContributionService;
 
@@ -29,8 +30,8 @@ public class ContributionController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Contribution>> getAllContributionsFromGoal() throws ResourceNotFoundException {
-        List<Contribution> contributions = contributionService.getAllFromGoal();
+    public ResponseEntity<List<Contribution>> getAllContributionsFromGoal(@RequestBody Goal goal) throws ResourceNotFoundException {
+        List<Contribution> contributions = contributionService.getAllFromGoal(goal);
         return new ResponseEntity<>(contributions, HttpStatus.OK);
     }
 

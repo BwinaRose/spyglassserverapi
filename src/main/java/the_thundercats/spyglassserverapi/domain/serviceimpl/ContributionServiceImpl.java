@@ -40,8 +40,8 @@ public class ContributionServiceImpl implements ContributionService {
     }
 
     @Override
-    public List<Contribution> getAllFromGoal() throws ResourceNotFoundException {
-        return contributionRepo.findAll();
+    public List<Contribution> getAllFromGoal(Goal goal) throws ResourceNotFoundException {
+        return contributionRepo.findByGoal(goal);
     }
 
     @Override
