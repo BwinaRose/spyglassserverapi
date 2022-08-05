@@ -30,6 +30,7 @@ public class RecurringGoalServiceImpl implements RecurringGoalService {
     public RecurringGoal create(String userId, RecurringGoal recurringGoal) throws ResourceNotFoundException {
         User user = userService.getUserById(userId);
         recurringGoal.setUser(user);
+        recurringGoal.getUser().setId(userId);
         return recurringGoalRepo.save(recurringGoal);
     }
 
