@@ -30,13 +30,11 @@ public class Contribution {
     @NonNull
     private Double contributionAmount;
 
-    @NonNull
+    @Temporal(TemporalType.DATE)
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private Date contributionDate;
     @ManyToOne
     private Goal goal;
-
-    @NonNull
-    Date date = new Date();
 
     @Override
     public String toString() {
@@ -44,8 +42,7 @@ public class Contribution {
     }
 
     @PrePersist
-    protected void onCreate(){
-        DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
-        dateFormat.format(date);
+    public void onCreate() {
+        contributionDate = new Date();
     }
 }
