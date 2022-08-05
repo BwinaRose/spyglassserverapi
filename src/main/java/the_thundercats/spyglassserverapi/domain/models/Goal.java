@@ -1,6 +1,8 @@
 package the_thundercats.spyglassserverapi.domain.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 import the_thundercats.spyglassserverapi.domain.dtos.UserDTO;
 
 import javax.persistence.*;
@@ -11,6 +13,7 @@ import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "goal_type")
 @Data
 @ToString
 @EqualsAndHashCode
@@ -32,13 +35,12 @@ public abstract class Goal {
     private String iconPicture;
 
     @Temporal(TemporalType.DATE)
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private Date startDate;
 
     @PrePersist
     public void onCreate() {
         startDate = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
-        dateFormat.format(startDate);
     }
 
     @NonNull
@@ -53,7 +55,7 @@ public abstract class Goal {
     @NonNull
     private Double currentDollarAmount;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "goal")
