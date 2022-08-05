@@ -30,8 +30,7 @@ public class User {
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
     @JsonManagedReference
-    @JsonIgnore
-    private List<Goal> goals = new java.util.ArrayList<>();
+    private List<Goal> goals;
 
     @Override
     public boolean equals(Object o) {
