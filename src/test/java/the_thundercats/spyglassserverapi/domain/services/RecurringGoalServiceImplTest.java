@@ -38,11 +38,11 @@ public class RecurringGoalServiceImplTest {
     @BeforeEach
     public void setUp() {
         mockGoal01 = new RecurringGoal("travel", "this is for travel", "this would be a path", new Date(), 0.00, 100.00, 0.00, Frequency.WEEKLY);
-        //mockGoal01.getUser().setId(1L);
+        mockGoal01.getUser().setId("abc");
 
         savedGoal01 = new RecurringGoal("travel", "this is for travel", "this would be a path", new Date(), 0.00, 100.00, 0.00, Frequency.WEEKLY);
         savedGoal01.setId(1L);
-        //savedGoal01.getUser().setId(1L);
+        savedGoal01.getUser().setId("abc");
 
         savedGoal02 = new RecurringGoal("car", "this is for car", "this would be a path", new Date(), 0.00, 10000.00, 100.00, Frequency.MONTHLY);
         savedGoal02.setId(1L);
@@ -52,8 +52,8 @@ public class RecurringGoalServiceImplTest {
     @DisplayName("Create recurring goal - success")
     public void createTest01() throws ResourceNotFoundException {
         BDDMockito.doReturn(savedGoal01).when(recurringGoalRepo).save(mockGoal01);
-        //RecurringGoal goal = recurringGoalService.create(1L, mockGoal01);
-        //Assertions.assertEquals(savedGoal01, goal);
+        RecurringGoal goal = recurringGoalService.create("abc", mockGoal01);
+        Assertions.assertEquals(savedGoal01, goal);
     }
 
     @Test
@@ -78,9 +78,9 @@ public class RecurringGoalServiceImplTest {
     public void getAllFromUserTest01() throws ResourceNotFoundException {
         List<RecurringGoal> goals = new ArrayList<>();
         goals.add(savedGoal01);
-        //BDDMockito.doReturn(goals).when(recurringGoalRepo).findByUser(1L);
-        //List<RecurringGoal> actual = recurringGoalService.getAllFromUser(1L);
-        //Assertions.assertIterableEquals(goals, actual);
+        BDDMockito.doReturn(goals).when(recurringGoalRepo).findByUser("abc");
+        List<RecurringGoal> actual = recurringGoalService.getAllFromUser("abc");
+        Assertions.assertIterableEquals(goals, actual);
     }
 
     @Test
