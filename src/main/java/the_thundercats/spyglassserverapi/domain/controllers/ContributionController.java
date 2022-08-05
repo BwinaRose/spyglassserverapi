@@ -42,8 +42,8 @@ public class ContributionController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Contribution> update(@PathVariable("id") Long goalId, @RequestBody Contribution details) throws ResourceNotFoundException {
-        Contribution contribution = contributionService.update(goalId, details);
+    public ResponseEntity<Contribution> update(@PathVariable("id") Long contributionId, @RequestBody Contribution details) throws ResourceNotFoundException {
+        Contribution contribution = contributionService.update(contributionId, details);
         return new ResponseEntity<>(contribution, HttpStatus.ACCEPTED);
     }
 

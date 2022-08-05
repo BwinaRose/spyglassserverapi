@@ -46,9 +46,6 @@ public class ContributionServiceImpl implements ContributionService {
 
     @Override
     public Contribution update(Long id, Contribution contributionDetails) throws ResourceNotFoundException, ResourceUpdateException {
-        Optional<Contribution> optional = contributionRepo.findById(id);
-        if(optional.isPresent())
-            throw new ResourceUpdateException("Contribution exists");
         Contribution contribution = getById(id);
         contribution.setContributionAmount(contributionDetails.getContributionAmount());
         contribution.setContributionDate(contributionDetails.getContributionDate());
