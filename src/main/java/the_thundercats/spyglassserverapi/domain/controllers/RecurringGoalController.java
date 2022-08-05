@@ -13,7 +13,7 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api/v1/recurring-goals")
+@RequestMapping("/api/v1/recurringgoals")
 public class RecurringGoalController {
 
     private RecurringGoalService recurringGoalService;
