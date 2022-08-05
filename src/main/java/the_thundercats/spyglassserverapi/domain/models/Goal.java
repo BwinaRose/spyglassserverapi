@@ -19,11 +19,11 @@ import java.util.List;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Table(name = "goals")
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME)
+@JsonTypeInfo(use = JsonTypeInfo.Id.DEDUCTION)
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = RecurringGoal.class, name = "RecurringGoal"),
+        @JsonSubTypes.Type(value = RecurringGoal.class, name = "recurring"),
 
-        @JsonSubTypes.Type(value = TimedGoal.class, name = "TimedGoal") }
+        @JsonSubTypes.Type(value = TimedGoal.class)}
 )
 public abstract class Goal {
     @Id
