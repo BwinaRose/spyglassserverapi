@@ -4,13 +4,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
-import org.hibernate.annotations.Cascade;
-import the_thundercats.spyglassserverapi.domain.dtos.UserDTO;
-
 import javax.persistence.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +19,12 @@ import java.util.List;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Table(name = "goals")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = RecurringGoal.class, name = "RecurringGoal"),
+
+        @JsonSubTypes.Type(value = TimedGoal.class, name = "TimedGoal") }
+)
 public abstract class Goal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
