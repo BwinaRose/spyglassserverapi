@@ -2,7 +2,6 @@ package the_thundercats.spyglassserverapi.domain.serviceimpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import the_thundercats.spyglassserverapi.domain.core.exceptions.ResourceCreationException;
 import the_thundercats.spyglassserverapi.domain.core.exceptions.ResourceNotFoundException;
 import the_thundercats.spyglassserverapi.domain.core.exceptions.ResourceUpdateException;
 import the_thundercats.spyglassserverapi.domain.models.Contribution;
@@ -10,9 +9,7 @@ import the_thundercats.spyglassserverapi.domain.models.Goal;
 import the_thundercats.spyglassserverapi.domain.repos.ContributionRepo;
 import the_thundercats.spyglassserverapi.domain.services.ContributionService;
 import the_thundercats.spyglassserverapi.domain.services.RecurringGoalService;
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ContributionServiceImpl implements ContributionService {
