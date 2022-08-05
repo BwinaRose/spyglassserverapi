@@ -45,7 +45,7 @@ public class RecurringGoalController {
     @PutMapping("{id}")
     public ResponseEntity<RecurringGoal> update(@PathVariable("id") Long userId, @RequestBody RecurringGoal details) throws ResourceNotFoundException {
         RecurringGoal goal = recurringGoalService.update(userId, details);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(goal, HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("{id}")
