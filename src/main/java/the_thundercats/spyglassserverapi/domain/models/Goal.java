@@ -55,7 +55,7 @@ public abstract class Goal {
     @NonNull
     private Double currentDollarAmount;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "goal")

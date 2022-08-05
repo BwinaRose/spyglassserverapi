@@ -28,7 +28,7 @@ public class User {
     @NonNull
     private String email;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @OneToMany(mappedBy = "user")
     @JsonManagedReference
     @JsonIgnore
     private List<Goal> goals = new java.util.ArrayList<>();
