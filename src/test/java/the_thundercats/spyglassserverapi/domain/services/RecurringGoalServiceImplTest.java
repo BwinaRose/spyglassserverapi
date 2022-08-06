@@ -12,9 +12,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import the_thundercats.spyglassserverapi.domain.Frequency;
 import the_thundercats.spyglassserverapi.domain.core.exceptions.ResourceNotFoundException;
+import the_thundercats.spyglassserverapi.domain.dtos.UserDTO;
 import the_thundercats.spyglassserverapi.domain.models.RecurringGoal;
+import the_thundercats.spyglassserverapi.domain.models.User;
 import the_thundercats.spyglassserverapi.domain.repos.RecurringGoalRepo;
-import the_thundercats.spyglassserverapi.domain.services.RecurringGoalService;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,28 +30,45 @@ public class RecurringGoalServiceImplTest {
     private RecurringGoalService recurringGoalService;
 
     @MockBean
+    private UserService userService;
+
+    @MockBean
     private RecurringGoalRepo recurringGoalRepo;
 
     private RecurringGoal mockGoal01;
     private RecurringGoal savedGoal01;
     private RecurringGoal savedGoal02;
 
+    private UserDTO savedUser01;
+
+    private User savedUser02;
+    private User mockUser;
+
     @BeforeEach
     public void setUp() {
         mockGoal01 = new RecurringGoal("travel", "this is for travel", "this would be a path", new Date(), 0.00, 100.00, 0.00, Frequency.WEEKLY);
-        mockGoal01.getUser().setId("abc");
+        mockGoal01.setUser(savedUser01);
 
         savedGoal01 = new RecurringGoal("travel", "this is for travel", "this would be a path", new Date(), 0.00, 100.00, 0.00, Frequency.WEEKLY);
         savedGoal01.setId(1L);
-        savedGoal01.getUser().setId("abc");
+        savedGoal01.setUser(savedUser01);
 
         savedGoal02 = new RecurringGoal("car", "this is for car", "this would be a path", new Date(), 0.00, 10000.00, 100.00, Frequency.MONTHLY);
         savedGoal02.setId(1L);
+
+        mockUser = new User("Sabrina", "Rose", "bwina@gmail.com");
+
+        savedUser01 = new UserDTO(mockUser);
+        savedUser01.setId("abc");
+
+        savedUser02 = new User("Sabrina", "Rose", "bwina@gmail.com");
+        savedUser02.setId("def");
     }
 
     @Test
     @DisplayName("Create recurring goal - success")
     public void createTest01() throws ResourceNotFoundException {
+        BDDMockito.doReturn(savedUser01).when(userService).getUserById("abc");
         BDDMockito.doReturn(savedGoal01).when(recurringGoalRepo).save(mockGoal01);
         RecurringGoal goal = recurringGoalService.create("abc", mockGoal01);
         Assertions.assertEquals(savedGoal01, goal);
@@ -72,16 +90,16 @@ public class RecurringGoalServiceImplTest {
             recurringGoalService.getById(1L);
         });
     }
-/*
+
     @Test
     @DisplayName("Get all from user - success")
     public void getAllFromUserTest01() throws ResourceNotFoundException {
         List<RecurringGoal> goals = new ArrayList<>();
         goals.add(savedGoal01);
-        BDDMockito.doReturn(goals).when(recurringGoalRepo).findByUser("abc");
-        List<RecurringGoal> actual = recurringGoalService.getAllFromUser("abc");
+        BDDMockito.doReturn(goals).when(recurringGoalRepo).findByUser(savedUser02);
+        List<RecurringGoal> actual = recurringGoalService.getAllFromUser(savedUser02);
         Assertions.assertIterableEquals(goals, actual);
-    }*/
+    }
 
     @Test
     @DisplayName("Update - success")

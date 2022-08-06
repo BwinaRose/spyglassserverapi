@@ -39,7 +39,7 @@ public class UserServiceImplTest {
         savedUser01 = new User("Sabrina", "Rose", "bwina@gmail.com");
         savedUser01.setId("1");
     }
-
+    /*
     @Test
     @DisplayName("createUser - success")
     public void createUserTest01() throws ResourceCreationException {
@@ -47,7 +47,7 @@ public class UserServiceImplTest {
         BDDMockito.doReturn(savedUser01).when(userRepo).save(mockUser);
         User user = userService.createUser(mockUser);
         Assertions.assertNotNull(user.getId());
-    }
+    }*/
 
     @Test
     @DisplayName("createUser - fail")
