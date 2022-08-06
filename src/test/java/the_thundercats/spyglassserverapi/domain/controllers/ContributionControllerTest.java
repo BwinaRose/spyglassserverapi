@@ -24,7 +24,9 @@ import the_thundercats.spyglassserverapi.domain.services.ContributionService;
 import the_thundercats.spyglassserverapi.security.PrincipalDetailsArgumentResolver;
 import the_thundercats.spyglassserverapi.security.models.FireBaseUser;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 
@@ -149,5 +151,23 @@ public class ContributionControllerTest {
         BDDMockito.doThrow(new ResourceNotFoundException("Not found")).when(contributionService).delete(any());
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/contribution/1"))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+    @Test
+    @DisplayName("GET all from goal - success")
+    public void getAllFromGoalTest01() throws Exception {
+        List<Contribution> contributionList = new ArrayList<>();
+        contributionList.add(savedContribution01);
+        savedGoal01.setContributions(contributionList);
+        BDDMockito.doReturn(contributionList).when(contributionService).getAllFromGoal(any());
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/contribution")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(BaseControllerTest.asJsonString(savedGoal01)))
+
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id", Is.is(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].contributionAmount", Is.is(100.00)));
     }
 }

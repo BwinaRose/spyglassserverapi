@@ -190,7 +190,7 @@ public class RecurringGoalControllerTest {
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/recurringgoals/user")
                 .contentType(MediaType.APPLICATION_JSON)
-                .contentType(BaseControllerTest.asJsonString(mockUser)))
+                .content(BaseControllerTest.asJsonString(mockUser)))
 
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
