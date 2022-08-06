@@ -22,6 +22,7 @@ import java.util.TimeZone;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Data
+@EqualsAndHashCode
 @Table(name = "contributions")
 public class Contribution {
     @Id

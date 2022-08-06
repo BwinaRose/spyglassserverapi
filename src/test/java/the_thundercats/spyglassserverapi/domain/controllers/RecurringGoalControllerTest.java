@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import the_thundercats.spyglassserverapi.domain.Frequency;
 import the_thundercats.spyglassserverapi.domain.core.exceptions.ResourceNotFoundException;
 import the_thundercats.spyglassserverapi.domain.dtos.UserDTO;
+import the_thundercats.spyglassserverapi.domain.models.Goal;
 import the_thundercats.spyglassserverapi.domain.models.RecurringGoal;
 import the_thundercats.spyglassserverapi.domain.models.User;
 import the_thundercats.spyglassserverapi.domain.services.RecurringGoalService;
@@ -28,7 +29,9 @@ import the_thundercats.spyglassserverapi.security.PrincipalDetailsArgumentResolv
 import the_thundercats.spyglassserverapi.security.models.FireBaseUser;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -61,11 +64,6 @@ public class RecurringGoalControllerTest {
                 .setCustomArgumentResolvers(new PrincipalDetailsArgumentResolver(fireBaseUser))
                 .build();
 
-        Date toReturn = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        dateFormat.setTimeZone(TimeZone.getTimeZone("America/New_York"));
-        String stringDate= dateFormat.format(toReturn);
-
         mockGoal01 = new RecurringGoal("travel", "this is for travel", "this would be a path", new Date(), 0.00, 100.00, 0.00, Frequency.WEEKLY);
         mockGoal01.setUser(savedUser01);
 
@@ -77,6 +75,7 @@ public class RecurringGoalControllerTest {
         savedGoal02.setId(1L);
 
         mockUser = new User("Sabrina", "Rose", "bwina@gmail.com");
+        mockUser.setId("abc");
 
         savedUser01 = new UserDTO(mockUser);
         savedUser01.setId("abc");
@@ -179,5 +178,29 @@ public class RecurringGoalControllerTest {
         BDDMockito.doThrow(new ResourceNotFoundException("Not Found")).when(mockRecurringGoalService).delete(any());
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/recurringgoals/1"))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+    @Test
+    @DisplayName("GET all from user - success")
+    public void getAllFromUserTest01() throws Exception {
+        List<Goal> goals = new ArrayList<>();
+        goals.add(savedGoal01);
+        mockUser.setGoals(goals);
+        BDDMockito.doReturn(goals).when(mockRecurringGoalService).getAllFromUser(any());
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/recurringgoals/user")
+                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(BaseControllerTest.asJsonString(mockUser)))
+
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id", Is.is(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].nameOfGoal", Is.is("travel")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].descriptionOfGoal", Is.is("this is for travel")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].iconPicture", Is.is("this would be a path")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].startingDollarAmount", Is.is(0.00)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].targetDollarAmount", Is.is(100.00)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].currentDollarAmount", Is.is(0.00)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].contributionFrequency", Is.is(Frequency.WEEKLY.name())));
     }
 }
