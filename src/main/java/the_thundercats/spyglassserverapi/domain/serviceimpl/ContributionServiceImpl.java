@@ -51,9 +51,10 @@ public class ContributionServiceImpl implements ContributionService {
 
     @Override
     public void delete(Long id) throws ResourceNotFoundException {
-        contributionRepo.findById(id)
-                .orElseThrow(()->new ResourceNotFoundException("No Message with id: " + id));
         Contribution message = getById(id);
+        Goal goal = message.getGoal();
+        goal.removeFromCurrentDollarAmount(message.getContributionAmount());
+        recurringGoalService.update(goal.getId(), goal);
         contributionRepo.delete(message);
     }
 }

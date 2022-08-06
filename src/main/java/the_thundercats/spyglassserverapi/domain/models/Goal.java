@@ -77,4 +77,9 @@ public abstract class Goal {
     public void addToCurrentDollarAmount(Double amount) {
         currentDollarAmount += amount;
     }
+
+    public void removeFromCurrentDollarAmount(Double amount) {
+        currentDollarAmount -= amount;
+    }
+
 }

@@ -23,4 +23,14 @@ public class RecurringGoalTest {
         Double actual = goal.getCurrentDollarAmount();
         Assertions.assertEquals(expected, actual);
     }
+
+    @Test
+    @DisplayName("Remove from current amount test")
+    public void removeFromCurrentDollarAmountTest() {
+        RecurringGoal goal = new RecurringGoal("travel", "this is for travel", "this would be a path", new Date(), 0.00, 100.00, 100.00, Frequency.WEEKLY);
+        Double expected = 90.00;
+        goal.removeFromCurrentDollarAmount(10.00);
+        Double actual = goal.getCurrentDollarAmount();
+        Assertions.assertEquals(expected, actual);
+    }
 }
