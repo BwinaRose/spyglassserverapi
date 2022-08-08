@@ -11,12 +11,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import the_thundercats.spyglassserverapi.domain.Frequency;
 import the_thundercats.spyglassserverapi.domain.core.exceptions.ResourceCreationException;
 import the_thundercats.spyglassserverapi.domain.core.exceptions.ResourceNotFoundException;
+import the_thundercats.spyglassserverapi.domain.dtos.UserCreateRequest;
+import the_thundercats.spyglassserverapi.domain.dtos.UserDTO;
+import the_thundercats.spyglassserverapi.domain.models.RecurringGoal;
 import the_thundercats.spyglassserverapi.domain.models.User;
 import the_thundercats.spyglassserverapi.domain.repos.UserRepo;
+import the_thundercats.spyglassserverapi.security.services.FirebaseUserMgrService;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,62 +36,30 @@ public class UserServiceImplTest {
     private UserRepo userRepo;
 
     private User mockUser;
-    private User savedUser01;
+    private UserDTO savedUser01;
 
     @BeforeEach
     public void setup(){
         mockUser = new User("Sabrina", "Rose", "bwina@gmail.com");
-
-        savedUser01 = new User("Sabrina", "Rose", "bwina@gmail.com");
-        savedUser01.setId("1");
-    }
-    /*
-    @Test
-    @DisplayName("createUser - success")
-    public void createUserTest01() throws ResourceCreationException {
-        BDDMockito.doReturn(Optional.empty()).when(userRepo).findById(ArgumentMatchers.any());
-        BDDMockito.doReturn(savedUser01).when(userRepo).save(mockUser);
-        User user = userService.createUser(mockUser);
-        Assertions.assertNotNull(user.getId());
-    }*/
-
-    @Test
-    @DisplayName("createUser - fail")
-    public void createUserTest02(){
-
+        savedUser01 = new UserDTO(mockUser);
+        savedUser01.setId("bwinaID");
     }
 
     @Test
     @DisplayName("get user by id - success")
     public void getByIdTest01() throws ResourceNotFoundException {
-        BDDMockito.doReturn(Optional.of(savedUser01)).when(userRepo).findById("1");
-        User user = userService.getUserById("1");
+        BDDMockito.doReturn(Optional.of(savedUser01)).when(userRepo).findById("bwinaID");
+        User user = userService.getUserById("bwinaID");
         Assertions.assertNotNull(user);
 
     }
     @Test
     @DisplayName("get user by id - fail")
     public void getByIdTest02(){
-        BDDMockito.doReturn(Optional.empty()).when(userRepo).findById("1");
+        BDDMockito.doReturn(Optional.empty()).when(userRepo).findById("bwinaID");
         Assertions.assertThrows(ResourceNotFoundException.class, ()->{
-            userService.getUserById("1");
+            userService.getUserById("bwinaID");
         });
-    }
-
-    @Test
-    @DisplayName("updateUser - pass")
-    public void updateTest01(){
-    }
-
-    @Test
-    @DisplayName("updateUser - fail")
-    public void updateTest02(){
-    }
-
-    @Test
-    @DisplayName("deleteUser - pass")
-    public void deleteTest01(){
-
     }
 
     @Test
